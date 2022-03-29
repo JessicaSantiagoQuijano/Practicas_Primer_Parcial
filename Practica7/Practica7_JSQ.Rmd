@@ -1,0 +1,311 @@
+---
+title: "Practica7_JSQ"
+author: "Jessica Santiago Quijano"
+date: '2022-03-23'
+output:   
+  html_document:
+    toc: TRUE #toc es una serie de secciones, para que ponga una tabla de contenido
+    toc_float: TRUE
+    number_sections: true #Enumera cada titulo y subtitulo
+    theme: united
+    highlight: tango
+---
+```{r include=FALSE}
+library(dplyr)
+```
+
+
+# Carga y analiza la estructura e información del data frame usando str
+```{r}
+datos_art <- read.csv(file = "Estudiantes.csv",header = TRUE)
+str(datos_art)
+```
+
+# Muestra el nombre de las variables
+```{r}
+names(datos_art)
+```
+
+# Muestra información de tamaños, en cuanto tamaño del archivo, dimesiones (fila, columna)
+```{r}
+object.size(datos_art)
+dim(datos_art)
+```
+
+# Muestra el conjunto de la fila 1-10 y de la columna 2-5 y realiza las instrucciones del 4.1 al 4.8
+```{r}
+conjunto <- datos_art[1:10, 2:5]
+conjunto
+```
+
+## Sola la fila 3 y columna 2
+
+```{r}
+incisoa <- conjunto [3,2]
+incisoa
+```
+
+## Todas las filas y solo la columna 2
+```{r}
+incisob <- conjunto [,2]
+incisob
+```
+
+## Solo la fila 3 y todas las columnas
+```{r}
+incisoc <- conjunto [3,]
+incisoc
+```
+
+## Quitar la fila 5 y dejar todas las columnas
+```{r}
+incisod<- conjunto [-5,]
+incisod
+```
+
+## Todas las filas, pero sin la columna dos
+```{r}
+incisoe<- conjunto [,-2]
+incisoe
+```
+
+## Todas las filas, pero solo columnas de 2 a 5
+```{r}
+incisof<- conjunto [,2:4]
+incisof
+```
+
+## Todas las filas, pero solo columnas 2 y 5
+```{r}
+incisog<- conjunto [,c(2,4)]
+incisog
+```
+
+## Solo las filas de 1 a 4, con las columnas 2 a 5
+```{r}
+incisoh<- conjunto [1:4,c(2,4)]
+incisoh
+```
+
+# Tipos de variables
+## Verifica el tipo de datos de la variable ID, Edad y Sexo. Si ID es de tipo carácter es correcto, si Edad y Sexo son de tipo carácter son incorrectas
+```{r}
+sapply(select(datos_art, ID, Edad, Sexo), class)
+```
+
+## Convierte la variable Edad a tipo númerico 
+```{r}
+edad <- transform(datos_art, Edad = as.numeric(Edad))
+edad
+```
+
+## Convierte la variable Sexo a Factor
+```{r}
+sexo <- transform(datos_art, Sexo = as.factor(Sexo))
+sexo
+```
+
+# Tablas univariadas
+## Construir una tabla de frecuencias para analizar la distribución de la variable categórica Sexo.
+```{r}
+#Definiendo y convirtiendo en factor
+Sexo <- as.factor(datos_art$Sexo)
+
+#Calcular tabla de frecuencias
+Tabla1 <- table(Sexo); Tabla1
+```
+
+# Tabla cruzada o de contingencia
+## Construir una tabla de frecuencias para analizar la distribución conjunta de las variables categóricas Sexo y Fuma
+```{r}
+#Definiendo y convirtiendo en factor
+Sexo <- as.factor(datos_art$Sexo)
+Fuma <- as.factor(datos_art$Fuma)
+
+#Tabla de frecuencias con table
+Tabla2 <- table(Sexo,Fuma); Tabla2
+```
+### Gráfico de barras de la tabla cruzada 
+```{r}
+barplot(Tabla2, benside = F,
+        main = 'Cantidad de hombre y mujeres que son y no son fumadores',
+        xlab = 'Personas que no fuman y  que si fuman', horiz = FALSE,
+        ylab = 'Frecuencia con la que fuma por sexo',
+        legend = c ("Femenino", "Masculino"),
+        col = c("pink", "sky blue"))
+```
+
+# SEGUNDA PARTE
+## Considerar solamente las observaciones que van desde la 2 hasta la 193 y las variables que van desde la 5 hasta la 15 y las variables 20 y 35
+```{r}
+MisDatos <- datos_art [2:193,c(5:15,20,35)]
+MisDatos
+```
+
+## Visualizar los primeros 6 registros del subconjunto de datos
+```{r}
+head(MisDatos,6)
+```
+
+## Revisa la estructura de estos nuevos datos
+```{r}
+str(MisDatos)
+```
+
+## Explorar los nombres de las variables
+```{r}
+names(MisDatos)
+```
+
+## Explorar tamaños (filas,columnas,tamaño del archivo)
+```{r}
+nrow(MisDatos)
+ncol(MisDatos)
+object.size(MisDatos)
+```
+
+## Revisar los tipos de datos de todas las variables del nuevo data frame
+```{r}
+sapply(MisDatos, class)
+```
+
+## Construir una tabla de frecuencias para una variable categórica y generar su correspondiente gráfico de barras, no olvides agregar títulos de ejes y título principal
+```{r}
+#Definiendo y convirtiendo en factor
+Fuma <- as.factor(MisDatos$Fuma)
+
+#Tabla de frecuencias con table
+Tabla3 <- table(Fuma); Tabla3
+
+barplot(Tabla3, benside = F,
+        main = 'Personas que fuman y no fuman',
+        xlab = 'Personas que no fuman y  que si fuman', horiz = FALSE,
+        ylab = 'Frecuencia',
+        col = c("green", "sky blue"))
+```
+
+## Construir una tabla de frecuencias cruzadas entre dos variables categóricas y su correspondiente diagrama de barras
+```{r}
+#Definiendo y convirtiendo en factor
+Fuma <- as.factor(MisDatos$Fuma)
+Clases <- as.factor((MisDatos$Clases))
+
+#Tabla de frecuencias con table
+Tabla4 <- table(Clases,Fuma); Tabla4
+
+barplot(Tabla4, benside = F,
+        main = 'Personas que prefieren clases virtuales o presenciales categorizadas por si es o no fumadora',
+        xlab = 'Personas que no fuma y que si fuman', horiz = FALSE,
+        ylab = 'Frecuencia por clases presenciales o virtuales',
+        legend = c ("Presencial", "Virtual"),
+        col = c("Light green", "sky blue"))
+
+```
+
+## Considerar una variable numérica (que no sea P3, ni Edad) y calcular las medidas estadísticas siguientes:
+### min(x)
+```{r}
+final <- MisDatos$Final
+final
+min(final)
+```
+
+### max(x)
+```{r}
+max(final)
+```
+
+### range(x)
+```{r}
+range(final)
+```
+
+### lenght(x)
+```{r}
+length(final)
+```
+
+### sum(x)
+```{r}
+sum(final)
+```
+
+### mean(x)
+```{r}
+mean(final)
+```
+
+### median(x)
+```{r}
+median(final)
+```
+
+### var(x)
+```{r}
+var(final)
+```
+
+### sqrt(var(x))
+```{r}
+sqrt(var(final))
+```
+
+### sd(x)
+```{r}
+sd(final)
+```
+
+### skewness(x)
+```{r}
+#skewness(final)
+```
+
+## A partir del subconjunto genera una gráfica de barras, una de dispersión y un histograma. Deberás explicar el resultado de cada gráfica
+
+### Gráfica de barras
+```{r}
+#Definiendo y convirtiendo en factor
+Financiacion <- as.factor(MisDatos$Financiacion)
+Fuma <- as.factor((MisDatos$Fuma))
+
+#Tabla de frecuencias con table
+Tabla5 <- table(Fuma,Financiacion); Tabla5
+
+barplot(Tabla5, benside = F,
+        main = 'Financiación de las personas de acuerdo a su edad',
+        xlab = 'Tipo de financiación', horiz = FALSE,
+        ylab = 'Frecuencia en no fuma y si fuma',
+        legend = c ("No Fuma", "Fuma"),
+        col = c("Light green", "sky blue", "orange"))
+```
+<p align = "justify">
+En esta gráfica de barras es interesante ya que, podemos observar que a los estudiantes que no fuman podrían tener la opción de adquirir o postularse para una beca y a un crédito. En cambio, los estudiantes que tienen el habito de fumar el índice de que adquieran una beca es casi similar al de los que no fuman, sin embargo el índice de que se postulen para un crédito es mucho más bajo en comparación a los que no fuma y tienen que buscar otras opciones.
+</p>
+
+
+### Gráfica de dispersión
+```{r}
+plot(MisDatos$Edad,MisDatos$Final,
+     main="Calificaciones de los estudiantes en el final",
+     xlab="Edad",
+     ylab="Final",
+     col = "dark blue")
+
+```
+<p align = "justify">
+En esta gráfica de dispersión podemos notar que las calificaciones de los alumnos no son tan buenas de acuerdo a su edad, se puede ver que entre las edades de 15 a 25 las calificaciones se centran entre 2 al 5.
+</p>
+
+## Histograma
+```{r}
+hist(MisDatos$Edad, main = "Edades de los estudiantes",
+     xlab = "Edad",
+     ylab = "Frecuencias",
+     #xlim = c(100,200), col = "yellow",
+     xlim = c(1,40), col = "green",
+     freq = TRUE)
+```
+
+<p align = "justify">
+En este histograma se observa que el rango en donde se concentra la mayoria de las edades de los estudiantes esta de lo 15 a lo 25 años de edad, asi como también el donde se encuentra el menor rango de edad esta en menores de 15 años y mayores de 25 a 30 años de edad.
+</p>
