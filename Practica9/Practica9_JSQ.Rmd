@@ -1,0 +1,48 @@
+---
+title: "Practica9_JSQ"
+author: "Jessica Santiago Quijano"
+date: '2022-03-23'
+output: 
+  html_document:
+    toc: TRUE #toc es una serie de secciones, para que ponga una tabla de contenido
+    toc_float: TRUE
+    number_sections: true #Enumera cada titulo y subtitulo
+    theme: united
+    highlight: tango
+---
+```{r}
+library(tidyverse)
+```
+
+# Cree un gráfico de dispersión con CPI en el eje x y HDI en el eje y
+```{r}
+datos_art <- read.csv(file = "EconomistData.csv",header = TRUE)
+ggplot(data = datos_art) + geom_point(mapping = aes(x = CPI, y = HDI))
+```
+
+# Colerea de azul los puntos del gráfico anterior
+```{r}
+ggplot(data = datos_art) + geom_point(mapping = aes(x = CPI, y = HDI), color = "blue")
+```
+
+# Asigne el color de los puntos a la variable Region
+```{r}
+ggplot(data = datos_art, aes(x = CPI, y = HDI)) + geom_point(alpha = 0.7, aes(color = Region))
+```
+
+# Manteniendo el color asignado a la Region, aumente el tamaño de los puntos configurando el tamaño (size) en 2
+```{r}
+ggplot(data = datos_art, aes(x = CPI, y = HDI)) + geom_point(aes(color = Region, size = 2))
+```
+
+# Manteniendo el color asignado a la Region, aumente el tamaño de los puntos a HDI.Rank
+```{r}
+
+ggplot(data = datos_art, aes(x = CPI, y = HDI)) + geom_point(aes(color = Region, size = HDI.Rank))
+```
+
+# Cambia la forma de los puntos
+```{r}
+ggplot(data = datos_art, aes(x = CPI, y = HDI)) + geom_point(aes(color = Region, shape = Region))
+```
+
