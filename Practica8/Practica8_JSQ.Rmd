@@ -1,0 +1,28 @@
+---
+title: "Practica8_JSQ"
+author: "Jessica Santiago Quijano"
+date: '2022-03-22'
+output:   
+  html_document:
+    toc: TRUE #toc es una serie de secciones, para que ponga una tabla de contenido
+    toc_float: TRUE
+    number_sections: true #Enumera cada titulo y subtitulo
+    theme: united
+    highlight: tango
+---
+```{r include=FALSE}
+library(tidyverse)
+```
+
+
+## Cargar la base de datos airquality
+```{r}
+airquality
+```
+
+## Hacer un gráfico de lineas -> geom_line y graficar las temperaturas
+```{r}
+ggplot(data = airquality) + geom_line(mapping = aes(x = Day, y = Temp),alpha = 1.5, color = "purple")
+
+```
+
