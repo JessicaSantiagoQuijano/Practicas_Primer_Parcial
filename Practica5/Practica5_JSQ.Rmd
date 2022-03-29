@@ -1,0 +1,80 @@
+---
+title: "Practica5_JSQ"
+author: "Jessica Santiago Quijano"
+date: '2022-03-15'
+output: 
+  html_document:
+    toc: TRUE #toc es una serie de secciones, para que ponga una tabla de contenido
+    toc_float: TRUE
+    number_sections: true #Enumera cada titulo y subtitulo
+    theme: united
+    highlight: tango
+---
+```{r include=FALSE}
+library(tidyverse)
+```
+
+
+# Cargar la base de datos cars y realizar:
+```{r}
+data("airquality")
+airquality[,]
+```
+
+# Muestra la clase de estructura donde esta almacenada la base de datos
+```{r}
+sapply(airquality,class)
+```
+
+# Muestra el tamaño del archivo de la base de datos
+```{r}
+object.size(airquality)
+```
+
+# Muestra el resumen de la base de datos
+```{r}
+summary(airquality)
+```
+
+# Muestra los primeros 6 registros de la base de datos
+```{r}
+head(airquality,6)
+```
+
+# Crea un conjunto de datos que solo posean las variables: ozone, wind, temp y además muestre los primeros 6 registros
+```{r}
+library(dplyr)
+
+variable <- select(airquality, Ozone, Wind, Temp)
+head(variable,6)
+```
+
+# Crea un subconjunto de datos que tenga todas las variables excepto Wind y Day. Posteriormente filtra las radiaciones solares que sean mayores a 200 del mes 8
+```{r}
+subconjunto <- select(airquality, -Day, -Wind)
+subconjunto <- filter(airquality, Solar.R > 200 & Month == "8")
+subconjunto
+```
+
+# Muestra las variables Wind y Temp de los días 1, 5 y 10
+```{r}
+variables_WyT <- select(airquality, Wind, Temp)
+variables_WyT[c(1,5,10),]
+```
+
+# Modifica la variable temperatura, convierte de grados centigrados a grados Fahrenheit
+```{r}
+fahrenheit <- mutate(airquality, Temp = (1.8 * Temp) + 32)
+fahrenheit
+```
+
+# Agrupa por día y muestra el resumen de los promedios de las variables Wind y Temp
+```{r}
+agrupacion <- group_by(airquality,Day)
+promedio <- summarise(agrupacion, promedio_Wind = mean(Wind, na.rm = TRUE), promedio_Temp = mean(Temp, na.rm = TRUE))
+promedio
+```
+
+
+
+
