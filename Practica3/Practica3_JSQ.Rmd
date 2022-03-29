@@ -1,0 +1,39 @@
+---
+title: "Practica3_JSQ"
+author: "Jessica Santiago Quijano"
+date: '2022-03-10'
+output: 
+  html_document:
+    toc_float:
+      smooth_scroll: false
+    theme: cosmo
+    highlight: tango
+---
+
+## **A continuación un conjunto de medidas corporales tomadas a un grupo de estudiantes en una universidad de Medellín.**
+
+### **A continuación la variables de la base de datos:**
+
+**edad:** *edad del estudiante en años*
+
+**peso:** *peso del estudiante en kilogramos*
+
+**altura:** *estatura del estudiante en centímetros*
+
+**sexo:** *género del estudiante*
+
+**muneca:** *diametro de la muñeca derecha en centímetros*
+
+**biceps:** *diametro del biceps derecho en centímetros*
+
+```{r}
+library(readxl)
+datos <- read_excel(file.choose(), sheet = 'Hoja1')
+as.data.frame(datos) #Para ver el contenido
+```
+
+```{r}
+datos_art <- read.table(file = "datos2.data",header = TRUE)
+as.data.frame(datos_art) #Para ver el contenido
+```
+
