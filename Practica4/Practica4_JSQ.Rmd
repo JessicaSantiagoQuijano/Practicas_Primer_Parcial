@@ -1,0 +1,77 @@
+---
+title: "Practica4_JSQ"
+author: "Jessica Santiago Quijano"
+date: '2022-03-10'
+output: 
+  html_document:
+    toc: TRUE #toc es una serie de secciones, para que ponga una tabla de contenido
+    toc_float: TRUE
+    number_sections: true #Enumera cada titulo y subtitulo
+    theme: united
+    highlight: tango
+---
+
+# Cargar la base de datos cars y realizar:
+```{r}
+data(cars)
+cars[,]
+```
+
+# Mostrar el resumen del conjunto de datos
+```{r}
+summary(cars)
+
+```
+# Mostrar la cantidad de filas y columnas
+```{r}
+dim(cars)
+```
+# Mostrar el tamaño del archivo
+```{r}
+object.size(cars)
+```
+# Mostrar el nombre de las columnas
+```{r}
+names(cars)
+```
+# Mostrar los ultimos 10 registros
+```{r}
+tail(cars,10)
+```
+# Mostrar los primeros 6 registros
+```{r}
+head(cars,6)
+```
+# Mostrar el registro que está exactamente a la mitad
+```{r}
+cars[nrow(cars)/2,]
+```
+# Mostrar los valores de la columna speed
+```{r}
+cars[,"speed"]
+```
+# Mostrar los registros donde speed>20
+```{r}
+cars[cars$speed > 20,]
+```
+# Mostrar los registros 2 y 20
+```{r}
+cars[c(2,20),]
+```
+# Mostrar los valores solo dist donde el speed == 20
+```{r}
+cars[cars$speed == 20,]
+```
+# En una variable sub1, almacenar las velocidades (exclusivamente), que sean >=20
+```{r}
+sub1 = cars[cars$speed >= 20,]
+sub1
+```
+
+
+
+
+
+
+
+
