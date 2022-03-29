@@ -1,0 +1,61 @@
+---
+title: "Practica6_JSQ"
+author: "Jessica Santiago Quijano"
+date: '2022-03-16'
+output:
+  html_document:
+    toc: TRUE #toc es una serie de secciones, para que ponga una tabla de contenido
+    toc_float: TRUE
+    number_sections: true #Enumera cada titulo y subtitulo
+    theme: united
+    highlight: tango
+---
+
+# Cargar la base de datos airquality
+```{r}
+data("airquality")
+airquality[,]
+```
+
+# Calcula el promedio mensual de temperaturas.Posteriormente, realiza un gráfico de barras
+```{r include=FALSE}
+library(dplyr)
+```
+
+## Promedio mensual de temperaturas
+```{r}
+pr <- group_by(airquality,Month)
+promedio <- summarise(pr, promedio_Temp = mean(Temp, na.rm = TRUE))
+promedio
+```
+
+## Gráfico de barras horizontal
+```{r}
+barplot(promedio$promedio_Temp,
+        main = 'Promedio mensual de temperatura',
+        xlab = 'Promedio mensual', horiz = TRUE,
+        ylab = 'Mes',
+        col = 'yellow')
+```
+
+## Gráfico de barras vertical
+```{r}
+barplot(promedio$promedio_Temp,
+        main = 'Promedio mensual de temperatura',
+        xlab = 'Mes', horiz = FALSE,
+        ylab = 'Promedio mensual',
+        col = 'green')
+```
+
+
+# Realizar un gráfico de dispersión donde grafiques Ozone vs Solar.R
+```{r}
+plot(airquality$Ozone, airquality$Solar.R,
+        type = "o", 
+        main = 'Ozono vs Radiación Solar',
+        xlab = 'Radiación', horiz = TRUE,
+        ylab = 'Ozono',
+        col = 'blue')
+```
+
+
